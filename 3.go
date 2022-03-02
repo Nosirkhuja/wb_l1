@@ -20,23 +20,7 @@ func summa1(numbers []int) int {
 	return curr
 }
 
-func summa2(numbers []int) int {
-	var curr int
-	channel := make(chan int, len(numbers))
-
-	go func() {
-		for i := 0; i < len(numbers); i++ {
-			channel <- numbers[i] * numbers[i]
-		}
-	}()
-	for i := 0; i < len(numbers); i++ {
-		curr += <-channel
-	}
-	close(channel)
-	return curr
-}
 func main() {
 	numbers := []int{2, 4, 6, 8, 10}
 	fmt.Println("Сумма квадратов", numbers, ": ", summa1(numbers))
-	fmt.Println("Сумма квадратов", numbers, ": ", summa2(numbers))
 }
